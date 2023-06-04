@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Attractive Div Example</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap');
+
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            width: 85%;
+            margin: 50px auto;
+            padding: 40px;
+            background-color: #2c2525;
+            border: 2px solid #333;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container .waviy {
+            position: relative;
+            -webkit-box-reflect: below -20px linear-gradient(transparent, rgba(0, 0, 0, .2));
+            font-size: 40px;
+        }
+
+        .container .waviy span {
+            font-family: 'Alfa Slab One', cursive;
+            position: relative;
+            display: inline-block;
+            color: #fff;
+            text-transform: uppercase;
+            animation: waviy 2s infinite;
+            animation-delay: calc(.1s * var(--i));
+        }
+
+        @keyframes waviy {
+
+            0%,
+            40%,
+            100% {
+                transform: translateY(0);
+            }
+
+            20% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .menu-container {
+            width: 85%;
+            margin: 0 auto;
+            padding: 40px;
+            background-color: burlywood;
+            text-align: center;
+        }
+
+        .menu-container h2 {
+            font-family: 'Alfa Slab One', cursive;
+            font-size: 30px;
+            color: black;
+            text-transform: uppercase;
+        }
+
+        .menu-container table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .menu-container tr {
+            border-bottom: 2px solid gray;
+        }
+
+        .menu-container th,
+        .menu-container td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        .menu-container img {
+            width: 80px;
+            height: 80px;
+            border-radius: 10%;
+        }
+
+        .menu-container .item-name,
+        .menu-container .item-price,
+        .menu-container .quantity {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .menu-container .item-name,
+        .menu-container .item-price {
+            font-size: 40px;
+        }
+
+        .menu-container .quantity {
+            margin-top: 30px;
+        }
+
+        .menu-container .quantity button {
+            font-size: 16px;
+            margin: 0 4px;
+            cursor: pointer;
+            background-color: #fff;
+            border: 0.5px solid gray;
+            width: 20px;
+        }
+
+        .menu-container .quantity input {
+            width: 28px;
+            text-align: center;
+        }
+
+        #container-img-chef {
+            width: 100px;
+            height: 100px;
+            position: relative;
+            left: -30px;
+            border-radius: 20px;
+        }
+
+        marquee {
+            color: black;
+            width: 85%;
+            position: relative;
+            left: 7.5%;
+            font-size: 20px;
+            top: -5%;
+        }
+
+        marquee b {
+            color: green;
+        }
+    </style>
+</head>
+
+<body onload="getMenu()">
+    <div class="container">
+        <img id="container-img-chef" src="https://img.freepik.com/premium-vector/smiling-chef-cartoon-character_8250-10.jpg?w=2000" alt="">
+        <div class="waviy">
+            <span style="--i:1">W</span>
+            <span style="--i:2">e</span>
+            <span style="--i:3">l</span>
+            <span style="--i:4">c</span>
+            <span style="--i:5">o</span>
+            <span style="--i:6">m</span>
+            <span style="--i:7">e</span>
+            <span style="--i:8"> </span>
+            <span style="--i:9">T</span>
+            <span style="--i:10">o</span>
+            <span style="--i:11"> </span>
+            <span style="--i:12">O</span>
+            <span style="--i:13">u</span>
+            <span style="--i:14">r</span>
+            <span style="--i:15"> </span>
+            <span style="--i:16">R</span>
+            <span style="--i:17">e</span>
+            <span style="--i:18">s</span>
+            <span style="--i:19">t</span>
+            <span style="--i:20">a</span>
+            <span style="--i:21">u</span>
+            <span style="--i:22">r</span>
+            <span style="--i:23">a</span>
+            <span style="--i:24">n</span>
+            <span style="--i:25">t</span>
+            <span style="--i:26">!</span>
+        </div>
+    </div>
+    <marquee behavior="scroll" direction="left">Flat 50% <b>Discount</b> on selected items!!!</marquee>
+    <div class="menu-container">
+        <h2>MENU</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                </tr>
+            </thead>
+            <tbody id="menuItemsBody">
+                <!-- Menu items go here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+
+        function decreaseQuantity(input) {
+            let value = parseInt(input.value);
+            if (value > 0) {
+                value--;
+            }
+            input.value = value;
+        }
+
+        function increaseQuantity(input) {
+            let value = parseInt(input.value);
+            value++;
+            input.value = value;
+        }
+
+        function attachQuantityFunctionality() {
+            const minusButtons = document.querySelectorAll('.menu-item .quantity button quantity-minus')[0];
+            const plusButtons = document.querySelectorAll('.menu-item .quantity button quantity-plus')[0];
+
+            minusButtons.forEach(minusBtn => {
+                const input = minusBtn.nextElementSibling;
+                minusBtn.addEventListener('click', () => decreaseQuantity(input));
+            });
+
+            plusButtons.forEach(plusBtn => {
+                const input = plusBtn.previousElementSibling;
+                plusBtn.addEventListener('click', () => increaseQuantity(input));
+            });
+        }
+
+        function getMenu() {
+            console.log("inside get menu");
+            const menuItemsContainer = document.getElementById('menuItemsBody');
+
+            fetch('https://raw.githubusercontent.com/saksham-accio/f2_contest_3/main/food.json')
+                .then(response => response.json())
+                .then(data => {
+                    data.forEach(menuItem => {
+                        const menuItemRow = document.createElement('tr');
+
+                        const menuItemImageCell = document.createElement('td');
+                        const menuItemImage = document.createElement('img');
+                        menuItemImage.src = menuItem.imgSrc;
+                        menuItemImage.alt = menuItem.name;
+                        menuItemImageCell.appendChild(menuItemImage);
+
+                        const menuItemNameCell = document.createElement('td');
+                        menuItemNameCell.textContent = menuItem.name;
+
+                        const menuItemPriceCell = document.createElement('td');
+                        menuItemPriceCell.textContent = menuItem.price;
+
+                        const menuItemQuantityCell = document.createElement('td');
+                        menuItemQuantityCell.classList.add('quantity');
+
+                        const minusButton = document.createElement('button');
+                        minusButton.textContent = '-';
+                        minusButton.classList.add('quantity-minus')
+                        menuItemQuantityCell.appendChild(minusButton);
+
+                        const quantityInput = document.createElement('input');
+                        quantityInput.type = 'text';
+                        quantityInput.value = '0';
+                        menuItemQuantityCell.appendChild(quantityInput);
+
+                        const plusButton = document.createElement('button');
+                        plusButton.textContent = '+';
+                        plusButton.classList.add('quantity-plus')
+                        menuItemQuantityCell.appendChild(plusButton);
+
+
+
+                        menuItemRow.appendChild(menuItemImageCell);
+                        menuItemRow.appendChild(menuItemNameCell);
+                        menuItemRow.appendChild(menuItemPriceCell);
+                        menuItemRow.appendChild(menuItemQuantityCell);
+
+                        menuItemsContainer.appendChild(menuItemRow);
+
+
+                    });
+
+                    attachQuantityFunctionality(); // Attach functionality to quantity buttons
+                });
+        }
+
+
+        function TakeOrder() {
+            return new Promise(resolve => {
+                setTimeout(() => {
+                    console.log("inside take order");
+                    const menuItems = document.querySelectorAll('.menu-item');
+                    const orderItems = [];
+
+                    menuItems.forEach(menuItem => {
+                        const itemName = menuItem.querySelector('.item-name').textContent;
+                        const itemPrice = menuItem.querySelector('.item-price').textContent;
+                        const quantity = parseInt(menuItem.querySelector('input').value);
+
+                        if (quantity > 0) {
+                            orderItems.push({
+                                name: itemName,
+                                price: itemPrice,
+                                quantity: quantity
+                            });
+                        }
+                    });
+
+                    const randomOrderItems = getRandomOrderItems(orderItems, 3);
+                    resolve(randomOrderItems);
+                }, 2500);
+            });
+        }
+
+        function getRandomOrderItems(orderItems, count) {
+            console.log("taking random order");
+            const randomItems = [];
+            const orderItemsCopy = [...orderItems];
+
+            for (let i = 0; i < count; i++) {
+                const randomIndex = Math.floor(Math.random() * orderItemsCopy.length);
+                randomItems.push(orderItemsCopy[randomIndex]);
+                orderItemsCopy.splice(randomIndex, 1);
+            }
+
+            return randomItems;
+        }
+
+        function orderPrep() {
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    console.log("preparing");
+                    resolve({ order_status: true, paid: false });
+                }, 1500);
+            });
+        }
+
+
+
+        function payOrder() {
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    console.log("paid");
+                    resolve({ order_status: true, paid: true });
+                }, 1000);
+            });
+        }
+
+        function thankyouFnc() {
+            alert('Thank you for eating with us today!');
+        }
+
+        TakeOrder()
+            .then((orderItems) => orderPrep(orderItems))
+            .then((orderStatus) => payOrder(orderStatus))
+            .then((paymentStatus) => {
+                if (paymentStatus.paid === true) {
+                    thankyouFnc();
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+
+    </script>
+</body>
+
+</html>
